@@ -11,7 +11,7 @@ This project is an SVG Logo Generator that takes user input using inquirer and w
 ## Installation
 The pertinent files for the project, including this README can all be found in the Github repository located at: https://github.com/mhalder4/svg-logo-maker-challenge.
 ## Usage
-This program runs in the terminal using Node.JS. Once run, it asks the user to input a desired 1-3 character piece of text, a text color, a shape, and a shape color. Once these have been entered with valid inputs, the program will create a logo for the user following these guidelines and place it in another folder.
+This program runs in the terminal using Node.JS. Before being run, ```npm install``` should be used to install all the necessary packages. Once run, it asks the user to input a desired 1-3 character piece of text, a text color, a shape, and a shape color. Once these have been entered with valid inputs, the program will create a logo for the user following these guidelines and place it in another folder.
 
 ![A gif of the program running.](./assets/gifs/SVG-logo-maker-challenge.gif)
 ## Credits
