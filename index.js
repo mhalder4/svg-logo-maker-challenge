@@ -5,6 +5,7 @@ const Circle = require("./lib/classes/circle");
 const Triangle = require("./lib/classes/triangle");
 const Square = require("./lib/classes/square");
 
+// Inquirer questions
 const questions = [
   {
     type: "input",
@@ -29,6 +30,7 @@ const questions = [
   }
 ];
 
+// Displays how to use the program in the console
 function displayInstructions() {
   console.log(
     "\x1b[36m%s\x1b[0m",
@@ -36,13 +38,11 @@ function displayInstructions() {
   );
 }
 
+// Checks if the answers inputted by the user are valid answers
 function checkValidity(data) {
   const charCheck = (data.characters.length > 0) && (data.characters.length < 4);
-  // console.log(charCheck);
   const textColorCheck = !!data.textColor;
-  // console.log(textColorCheck);
   const shapeColorCheck = !!data.shapeColor;
-  // console.log(shapeColorCheck);
 
   if (!charCheck) {
     console.log("\x1b[31m%s\x1b[0m", "Error: There are either too many or too few characters enterred. Please try again.");
@@ -57,6 +57,7 @@ function checkValidity(data) {
 
 }
 
+// Determines which SVG text to generate based on the shape input by the user
 function createSVGText(data) {
 
   let logoShape;
@@ -68,21 +69,19 @@ function createSVGText(data) {
     case "Circle":
       logoShape = new Circle(characters, textColor, shape, shapeColor);
       svgText = logoShape.generateSVGText();
-      // console.log(svgText);
       return svgText;
     case "Triangle":
       logoShape = new Triangle(characters, textColor, shape, shapeColor);
       svgText = logoShape.generateSVGText();
-      // console.log(svgText);
       return svgText;
     case "Square":
       logoShape = new Square(characters, textColor, shape, shapeColor);
       svgText = logoShape.generateSVGText();
-      // console.log(svgText);
       return svgText;
   }
 }
 
+// Writes the SVG text to a new file
 function writeSVGFile(data, text) {
   const fileName = `${data.characters}_${data.textColor}_${data.shape}_${data.shapeColor}_logo.svg`;
   fs.writeFile(__dirname + `/./user_logos/${fileName}`, text, (err) =>
@@ -90,23 +89,20 @@ function writeSVGFile(data, text) {
   );
 }
 
-
+// Starts the program and runs all the necessary functions
 function start() {
   displayInstructions();
 
   inquirer
     .prompt(questions)
     .then(answers => {
-      console.log(answers);
       if (checkValidity(answers)) {
         const svgText = createSVGText(answers);
-        // console.log("Generated a logo.");
-        // console.log(svgText);
 
         writeSVGFile(answers, svgText);
       }
     })
 }
 
-// displayInstructions();
+
 start();
