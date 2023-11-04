@@ -57,61 +57,27 @@ function checkValidity(data) {
 
 }
 
-function generateCircleSVGText(circle) {
-  return `
-  <svg version="1.1" width="300" height="200" xmlns="http://www.w3.org/2000/svg">
-  
-  <circle cx="${circle.cx}" cy="${circle.cy}" r="${circle.r}" fill="${circle.shapeColor}"/>
-  
-  <text x="${circle.textSvg.x}" y="${circle.textSvg.y}" font-size="${circle.textSvg.fontSize}" text-anchor="${circle.textSvg.textAnchor}" fill="${circle.textColor}" font-family="${circle.textSvg.fontFamily}">${circle.chars}</text>
-  
-  </svg>
-  `;
-}
+function createSVGText(data) {
 
-function generateTriangleSVGText(triangle) {
-  return `
-  <svg version="1.1" width="300" height="200" xmlns="http://www.w3.org/2000/svg">
-  
-  <polygon points="${triangle.pointA} ${triangle.pointB} ${triangle.pointC}" fill="${triangle.shapeColor}"/>
-  
-  <text x="${triangle.textSvg.x}" y="${triangle.textSvg.y}" font-size="${triangle.textSvg.fontSize}" text-anchor="${triangle.textSvg.textAnchor}" fill="${triangle.textColor}" font-family="${triangle.textSvg.fontFamily}">${triangle.chars}</text>
-  
-  </svg>
-  `;
-}
-
-function generateSquareSVGText(square) {
-  return `
-  <svg version="1.1" width="300" height="200" xmlns="http://www.w3.org/2000/svg">
-  
-  <rect x="${square.x}" y="${square.y}" width="${square.width}" height="${square.height}" fill="${square.shapeColor}"/>
-  
-  <text x="${square.textSvg.x}" y="${square.textSvg.y}" font-size="${square.textSvg.fontSize}" text-anchor="${square.textSvg.textAnchor}" fill="${square.textColor}" font-family="${square.textSvg.fontFamily}">${square.chars}</text>
-  
-  </svg>
-  `;
-}
-
-function generateSVGText(data) {
-
-  let shape;
+  let logoShape;
   let svgText;
 
-  switch (data.shape) {
+  const { characters, textColor, shape, shapeColor } = data;
+
+  switch (shape) {
     case "Circle":
-      shape = new Circle(data.characters, data.textColor, data.shape, data.shapeColor);
-      svgText = generateCircleSVGText(shape);
+      logoShape = new Circle(characters, textColor, shape, shapeColor);
+      svgText = logoShape.generateSVGText();
       // console.log(svgText);
       return svgText;
     case "Triangle":
-      shape = new Triangle(data.characters, data.textColor, data.shape, data.shapeColor);
-      svgText = generateTriangleSVGText(shape);
+      logoShape = new Triangle(characters, textColor, shape, shapeColor);
+      svgText = logoShape.generateSVGText();
       // console.log(svgText);
       return svgText;
     case "Square":
-      shape = new Square(data.characters, data.textColor, data.shape, data.shapeColor);
-      svgText = generateSquareSVGText(shape);
+      logoShape = new Square(characters, textColor, shape, shapeColor);
+      svgText = logoShape.generateSVGText();
       // console.log(svgText);
       return svgText;
   }
@@ -133,7 +99,7 @@ function start() {
     .then(answers => {
       console.log(answers);
       if (checkValidity(answers)) {
-        const svgText = generateSVGText(answers);
+        const svgText = createSVGText(answers);
         // console.log("Generated a logo.");
         // console.log(svgText);
 
